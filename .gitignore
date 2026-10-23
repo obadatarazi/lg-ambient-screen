@@ -1,0 +1,32 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# Swift / Xcode build artifacts
+AmbientControl/.build/
+AmbientControl/build/
+*.xcodeproj/
+*.xcworkspace/
+DerivedData/
+
+# Packaged TV installers (rebuild with ares-package)
+webos-screensaver-pkg/
+*.ipk
+
+# PC server runtime state & uploads (keep sample media)
+webos-screensaver/server/state.json
+webos-screensaver/server/media/*
+!webos-screensaver/server/media/sample-*.jpg
+!webos-screensaver/server/media/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*~

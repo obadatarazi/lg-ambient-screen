@@ -1,0 +1,12 @@
+{
+  "id": "com.cupcoding.screensaver",
+  "title": "Ambient Screen",
+  "main": "index.html",
+  "icon": "icon.png",
+  "type": "web",
+  "vendor": "CupCoding",
+  "version": "1.3.0",
+  "resolution": "1280x720",
+  "disableBackHistoryAPI": true,
+  "requiredPermissions": []
+}

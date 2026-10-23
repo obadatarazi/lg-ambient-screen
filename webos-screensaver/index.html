@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ambient Screen</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div id="app">
+    <!-- Wallpaper (two layers for crossfade + slow Ken Burns drift) -->
+    <div id="wall-a" class="wall active"></div>
+    <div id="wall-b" class="wall"></div>
+    <div class="scrim"></div>
+    <!-- Weather over the wallpaper: rain, snow, clouds, stars, sunrise/sunset glow -->
+    <div id="fx" class="fx"></div>
+
+    <!-- Remote media from PC server (image or video) -->
+    <div id="media-layer" class="media-layer hidden">
+      <img id="media-image" class="media-image" alt="" />
+      <video id="screen-video" class="screen-video"></video>
+      <video id="media-video" class="media-video" autoplay loop muted playsinline></video>
+    </div>
+
+    <!-- Dynamic Island: status messages -->
+    <div id="island" class="island hidden">
+      <div class="isl-shape isl-mid"></div>
+      <div class="isl-shape isl-end-l"></div>
+      <div class="isl-shape isl-end-r"></div>
+      <div class="isl-layer isl-compact">
+        <span id="isl-lead" class="isl-lead"></span>
+        <span id="isl-trail" class="isl-trail"></span>
+      </div>
+      <div class="isl-layer isl-minirow">
+        <span id="isl-mini-dot" class="isl-mini-dot"></span><span id="isl-mini" class="isl-mini"></span>
+      </div>
+      <div class="isl-layer isl-expanded">
+        <div id="isl-icon" class="isl-icon"></div>
+        <div class="isl-body">
+          <div id="isl-title" class="isl-title"></div>
+          <div id="isl-text" class="isl-text"></div>
+        </div>
+        <div id="isl-side" class="isl-side">now</div>
+      </div>
+    </div>
+
+    <!-- Lock screen content (drifts slightly to protect the panel) -->
+    <div id="content" class="content">
+      <div id="clock-block" class="lock">
+        <div id="date" class="lock-date">Wednesday, October 21</div>
+        <div id="clock" class="lock-time">20:59</div>
+      </div>
+
+      <div id="widgets" class="widgets">
+        <div id="w-calendar" class="widget w-cal">
+          <div id="cal-weekday" class="cal-weekday">WEDNESDAY</div>
+          <div id="cal-day" class="cal-day">21</div>
+          <div id="cal-month" class="cal-month">October</div>
+        </div>
+
+        <div id="quote-block" class="widget w-quote">
+          <div class="w-head"><span class="w-icon">&ldquo;</span><span id="greeting">Good Evening</span></div>
+          <div id="quote-body" class="quote-body">
+            <p id="quote-text" class="quote-text"></p>
+            <p id="quote-author" class="quote-author"></p>
+          </div>
+          <div class="quote-progress"><div id="quote-bar" class="quote-bar"></div></div>
+        </div>
+
+        <div id="w-clock" class="widget w-analog">
+          <!-- Digital face: one line of digits + a bar that fills over the minute -->
+          <div class="digital">
+            <div id="dg-label" class="dg-label">Local Time</div>
+            <div id="dg-time" class="dg-time">20:59</div>
+            <div class="dg-progress"><div id="dg-bar" class="dg-bar"></div></div>
+          </div>
+          <!-- Stacked face: hours over minutes (StandBy style) -->
+          <div class="stacked">
+            <div id="st-h" class="st-h">20</div>
+            <div id="st-m" class="st-m">59</div>
+          </div>
+          <div id="dial" class="dial">
+            <div id="hand-h" class="hand hand-h"></div>
+            <div id="hand-m" class="hand hand-m"></div>
+            <div id="hand-s" class="hand hand-s"></div>
+            <div class="hub"></div>
+          </div>
+        </div>
+
+        <div id="w-weather" class="widget w-weather">
+          <div class="wx-now">
+            <div id="wx-city" class="wx-city">Weather</div>
+            <div id="wx-temp" class="wx-temp">--&deg;</div>
+            <div class="wx-cond"><span id="wx-icon" class="wx-icon"></span><span id="wx-desc" class="wx-desc"></span></div>
+            <div id="wx-hilo" class="wx-hilo">Set your city in the Mac app</div>
+          </div>
+          <div class="wx-side">
+            <div id="wx-days" class="wx-days"></div>
+            <div id="wx-sun" class="wx-sun"></div>
+          </div>
+        </div>
+
+        <div id="w-world" class="widget w-world">
+          <div id="wc-city" class="dg-label">London</div>
+          <div id="wc-time" class="dg-time">--:--</div>
+          <div id="wc-diff" class="wc-diff"></div>
+        </div>
+
+        <div id="w-events" class="widget w-events">
+          <div id="ev-head" class="ev-head">Up Next</div>
+          <div id="ev-list" class="ev-list"></div>
+        </div>
+
+        <div id="w-music" class="widget w-music">
+          <div id="mu-art" class="mu-art"></div>
+          <div class="mu-body">
+            <div id="mu-label" class="mu-label">Now Playing</div>
+            <div id="mu-title" class="mu-title">Not Playing</div>
+            <div id="mu-artist" class="mu-artist"></div>
+            <div class="mu-progress"><div id="mu-bar" class="mu-bar"></div></div>
+            <div class="mu-times"><span id="mu-pos"></span><span id="mu-dur"></span></div>
+          </div>
+        </div>
+
+        <div id="w-prayer" class="widget w-prayer">
+          <div class="pr-head"><span id="pr-next" class="pr-next">Prayer Times</span><span id="pr-in" class="pr-in"></span></div>
+          <div id="pr-list" class="pr-list"></div>
+        </div>
+
+        <div id="w-countdown" class="widget w-countdown">
+          <div id="cd-title" class="dg-label">Countdown</div>
+          <div id="cd-num" class="cd-num">&ndash;</div>
+          <div id="cd-unit" class="cd-unit">days</div>
+        </div>
+
+        <div id="w-notes" class="widget w-notes">
+          <div id="nt-title" class="nt-title">Notes</div>
+          <div id="nt-list" class="nt-list"></div>
+        </div>
+      </div>
+
+      <div id="dots" class="dots"></div>
+    </div>
+
+    <div class="tint"></div>
+    <div id="night" class="night"></div>
+
+    <!-- Help sheet -->
+    <div id="help" class="sheet-wrap hidden">
+      <div class="sheet">
+        <div class="sheet-title">Remote Controls</div>
+        <div class="group">
+          <div class="row"><span class="row-l">Left / Right</span><span class="row-r">Previous / next quote</span></div>
+          <div class="row"><span class="row-l">Up</span><span class="row-r">Next wallpaper</span></div>
+          <div class="row"><span class="row-l">Down</span><span class="row-r">Brightness</span></div>
+          <div class="row"><span class="row-l">OK</span><span class="row-r">Pause / resume</span></div>
+        </div>
+        <div class="group">
+          <div class="row"><span class="row-l"><i class="cb red"></i>Red</span><span class="row-r">Next wallpaper</span></div>
+          <div class="row"><span class="row-l"><i class="cb green"></i>Green</span><span class="row-r">Next quote</span></div>
+          <div class="row"><span class="row-l"><i class="cb yellow"></i>Yellow</span><span class="row-r">12 / 24-hour clock</span></div>
+          <div class="row"><span class="row-l"><i class="cb blue"></i>Blue</span><span class="row-r">Brightness</span></div>
+          <div class="row"><span class="row-l">1</span><span class="row-r">Connect to PC</span></div>
+        </div>
+        <div class="sheet-foot">Press Back to close</div>
+      </div>
+    </div>
+
+    <!-- PC IP setup (iOS alert) -->
+    <div id="setup" class="sheet-wrap hidden">
+      <div class="alert">
+        <div class="alert-body">
+          <div class="alert-title">Connect to PC</div>
+          <div class="alert-desc">Enter the IP address of the computer running the Ambient server.</div>
+          <input id="setup-ip" class="field" type="text" maxlength="45" value="192.168.1.103" />
+          <input id="setup-port" class="field" type="text" maxlength="5" value="8787" />
+          <div id="setup-msg" class="alert-msg"></div>
+        </div>
+        <div class="alert-actions">
+          <button id="setup-skip" class="alert-btn" type="button">Cancel</button>
+          <button id="setup-save" class="alert-btn bold" type="button">Connect</button>
+        </div>
+        <div class="alert-hint">Red = Connect &nbsp;&middot;&nbsp; Back = Cancel</div>
+      </div>
+    </div>
+  </div>
+  <script src="js/island.js"></script>
+  <script src="js/widgets.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>Ambient Control</string>
+	<key>CFBundleExecutable</key>
+	<string>AmbientControl</string>
+	<key>CFBundleIconFile</key>
+	<string>AppIcon</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.cupcoding.ambientcontrol</string>
+	<key>CFBundleName</key>
+	<string>Ambient Control</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.3</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>Ambient Control</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>ambientcontrol</string>
+			</array>
+		</dict>
+	</array>
+	<key>CFBundleVersion</key>
+	<string>3</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.utilities</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>26.0</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoadsInWebContent</key>
+		<true/>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+	<key>NSAppleEventsUsageDescription</key>
+	<string>Ambient Control shows the song playing in Music or Spotify on the TV.</string>
+	<key>NSCalendarsFullAccessUsageDescription</key>
+	<string>Ambient Control shows your upcoming events in the Calendar widget on the TV.</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Ambient Control shows your upcoming events in the Calendar widget on the TV.</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Ambient Control serves photos and videos to your LG TV and controls it over your home network.</string>
+	<key>NSLocationUsageDescription</key>
+	<string>Ambient Control shows the weather and prayer times for where you are.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Ambient Control shows the weather and prayer times for where you are.</string>
+	<key>NSScreenCaptureUsageDescription</key>
+	<string>Ambient Control streams the display you choose to your TV.</string>
+</dict>
+</plist>

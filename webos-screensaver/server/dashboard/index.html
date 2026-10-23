@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ambient Screen — Control</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <header class="header">
+      <div>
+        <h1>Ambient Screen</h1>
+        <p class="sub">PC control for your LG TV screensaver</p>
+      </div>
+      <div id="info-box" class="info-box">
+        <div>LAN IP: <strong id="lan-ip">…</strong></div>
+        <div>Port: <strong id="lan-port">8787</strong></div>
+        <div class="tiny">Enter this IP on the TV setup screen</div>
+      </div>
+    </header>
+
+    <section class="card">
+      <h2>Display</h2>
+      <div class="toggles">
+        <label class="toggle"><input type="checkbox" id="opt-clock" checked /> Clock</label>
+        <label class="toggle"><input type="checkbox" id="opt-date" checked /> Date</label>
+        <label class="toggle"><input type="checkbox" id="opt-quotes" checked /> Quotes</label>
+      </div>
+      <div class="row">
+        <label for="opt-interval">Rotation interval (seconds)</label>
+        <input type="number" id="opt-interval" min="5" max="600" value="30" />
+        <button type="button" id="btn-save-display" class="btn">Apply</button>
+      </div>
+      <p id="display-msg" class="msg"></p>
+    </section>
+
+    <section class="card">
+      <h2>Now playing</h2>
+      <div id="now-playing" class="now-playing">Local gradients / offline</div>
+      <div class="row">
+        <button type="button" id="btn-clear" class="btn btn-ghost">Clear media (TV uses local backgrounds)</button>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Upload media</h2>
+      <p class="hint">Images: JPG, PNG, GIF, WebP. Videos: MP4 (H.264) preferred for webOS 3.9.</p>
+      <div class="upload-row">
+        <input type="file" id="file-input" accept="image/*,video/mp4,video/webm,video/quicktime" multiple />
+        <button type="button" id="btn-upload" class="btn">Upload</button>
+      </div>
+      <p id="upload-msg" class="msg"></p>
+    </section>
+
+    <section class="card">
+      <h2>Library</h2>
+      <div id="library" class="library">Loading…</div>
+    </section>
+
+    <section class="card">
+      <h2>Playlist</h2>
+      <p class="hint">Click media in the library to set as active. Check items below, then save playlist for rotation.</p>
+      <div id="playlist-builder" class="playlist-builder"></div>
+      <div class="row">
+        <button type="button" id="btn-save-playlist" class="btn">Save playlist &amp; play</button>
+      </div>
+      <p id="playlist-msg" class="msg"></p>
+    </section>
+
+    <section class="card instructions">
+      <h2>TV setup</h2>
+      <ol>
+        <li>Keep this server running on your PC.</li>
+        <li>Allow port <strong>8787</strong> through the PC firewall (private network).</li>
+        <li>On the TV, open <strong>Ambient Screen</strong>.</li>
+        <li>Enter IP <strong id="instr-ip">…</strong> and port <strong>8787</strong>, then Save &amp; Connect.</li>
+        <li>Press <strong>1</strong> on the remote anytime to reopen setup. Offline mode keeps clock &amp; quotes.</li>
+      </ol>
+    </section>
+  </div>
+  <script src="dashboard.js"></script>
+</body>
+</html>
